@@ -1,0 +1,6 @@
+framework module Pods_GitHubFetcher {
+  umbrella header "Pods-GitHubFetcher-umbrella.h"
+
+  export *
+  module * { export * }
+}

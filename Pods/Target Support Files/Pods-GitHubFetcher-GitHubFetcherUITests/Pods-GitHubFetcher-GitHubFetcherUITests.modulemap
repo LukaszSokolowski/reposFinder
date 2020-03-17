@@ -1,0 +1,6 @@
+framework module Pods_GitHubFetcher_GitHubFetcherUITests {
+  umbrella header "Pods-GitHubFetcher-GitHubFetcherUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
