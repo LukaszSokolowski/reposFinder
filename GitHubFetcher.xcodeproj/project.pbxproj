@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1BEA6F3687D990193C7A810B /* Pods_GitHubFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4668E1EB7653844E1D1245D2 /* Pods_GitHubFetcher.framework */; };
+		211644B12421A8F800A343C1 /* SearchReposTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211644B02421A8F800A343C1 /* SearchReposTableViewController.swift */; };
+		211644B32421A92A00A343C1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211644B22421A92A00A343C1 /* DetailViewController.swift */; };
+		211644B52421AA0A00A343C1 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211644B42421AA0A00A343C1 /* ConnectionManager.swift */; };
 		214202852410620400BA33FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214202842410620400BA33FB /* AppDelegate.swift */; };
 		214202872410620400BA33FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214202862410620400BA33FB /* SceneDelegate.swift */; };
-		214202892410620400BA33FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214202882410620400BA33FB /* ViewController.swift */; };
 		2142028C2410620400BA33FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2142028A2410620400BA33FB /* Main.storyboard */; };
 		2142028F2410620400BA33FB /* GitHubFetcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2142028D2410620400BA33FB /* GitHubFetcher.xcdatamodeld */; };
 		214202912410620600BA33FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 214202902410620600BA33FB /* Assets.xcassets */; };
@@ -39,10 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		211644B02421A8F800A343C1 /* SearchReposTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReposTableViewController.swift; sourceTree = "<group>"; };
+		211644B22421A92A00A343C1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		211644B42421AA0A00A343C1 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		214202812410620400BA33FB /* GitHubFetcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubFetcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		214202842410620400BA33FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		214202862410620400BA33FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		214202882410620400BA33FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2142028B2410620400BA33FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2142028E2410620400BA33FB /* GitHubFetcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GitHubFetcher.xcdatamodel; sourceTree = "<group>"; };
 		214202902410620600BA33FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,12 +124,14 @@
 			children = (
 				214202842410620400BA33FB /* AppDelegate.swift */,
 				214202862410620400BA33FB /* SceneDelegate.swift */,
-				214202882410620400BA33FB /* ViewController.swift */,
 				2142028A2410620400BA33FB /* Main.storyboard */,
 				214202902410620600BA33FB /* Assets.xcassets */,
 				214202922410620600BA33FB /* LaunchScreen.storyboard */,
 				214202952410620600BA33FB /* Info.plist */,
 				2142028D2410620400BA33FB /* GitHubFetcher.xcdatamodeld */,
+				211644B02421A8F800A343C1 /* SearchReposTableViewController.swift */,
+				211644B22421A92A00A343C1 /* DetailViewController.swift */,
+				211644B42421AA0A00A343C1 /* ConnectionManager.swift */,
 			);
 			path = GitHubFetcher;
 			sourceTree = "<group>";
@@ -410,8 +416,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				214202892410620400BA33FB /* ViewController.swift in Sources */,
 				214202852410620400BA33FB /* AppDelegate.swift in Sources */,
+				211644B52421AA0A00A343C1 /* ConnectionManager.swift in Sources */,
+				211644B12421A8F800A343C1 /* SearchReposTableViewController.swift in Sources */,
+				211644B32421A92A00A343C1 /* DetailViewController.swift in Sources */,
 				2142028F2410620400BA33FB /* GitHubFetcher.xcdatamodeld in Sources */,
 				214202872410620400BA33FB /* SceneDelegate.swift in Sources */,
 			);
