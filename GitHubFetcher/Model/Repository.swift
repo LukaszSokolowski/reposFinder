@@ -11,16 +11,19 @@ import Foundation
 final class Repository: Decodable {
     var name: String
     var user: User
+    var description: String
     var forks: Int
     var stars: Int
     var watchers: Int
+
     //var languages: [String]
-    init(name: String, user: User, forks: Int, stars: Int, watchers: Int) {
+    init(name: String, user: User, forks: Int, stars: Int, watchers: Int, description: String) {
         self.name = name
         self.user = user
         self.forks = forks
         self.stars = stars
         self.watchers = watchers
+        self.description = description
       //  self.languages = languages
     }
 
@@ -30,6 +33,7 @@ final class Repository: Decodable {
         case forks = "forks_count"
         case stars = "stargazers_count"
         case watchers = "watchers_count"
+        case description = "description"
 //        case languages = ????
     }
 }
