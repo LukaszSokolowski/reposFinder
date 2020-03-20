@@ -14,11 +14,11 @@ class SearchReposTableViewController: UITableViewController, UISearchBarDelegate
     @IBOutlet weak var searchBar: UISearchBar!
     let connection = ConnectionManager()
     var repositories = Repositories()
-
+    var numOfResults = 30
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
-        getRepos()
+
     }
 
     func configureSearchBar() {
@@ -26,44 +26,69 @@ class SearchReposTableViewController: UITableViewController, UISearchBarDelegate
         searchBar.showsCancelButton = false
     }
 
-    func getRepos()  {
-        let params: Parameters = ["q" : "swift"]
-        let headers: HTTPHeaders = ["accept" : "application/vnd.github.mercy-preview+json"]
-        AF.request("https://api.github.com/search/repositories", parameters: params, headers: headers).responseDecodable(of: Repositories.self) { (response) in
-            guard let repos = response.value else { return }
-            self.repositories = repos
-            self.tableView.reloadData()
-//            print("Repo name: \(self.repositories.repos[0].name)")
-//            print("Search results number: \(self.repositories.totalCount)")
-//            print("Owner name: \(self.repositories.repos[0].user.name)")
-//            print("Total forks: \(self.repositories.repos[0].forks)")
-//            print("Total stars: \(self.repositories.repos[0].stars)")
-//            print("Total watchers: \(self.repositories.repos[0].watchers)")
-//            print("Description: \(self.repositories.repos[0].description)")
+    func dumbSearch(with keyword: String?) {
+        guard let searchText = keyword else { return }
+        let params: Parameters = ["q" : searchText]
+        AF.request("https://api.github.com/search/repositories",parameters: params, encoding: URLEncoding.queryString)
+          .validate()
+          .responseDecodable(of: Repositories.self) {
+            response in
+            let header = response.response?.headers.value(for: "Link")
+            let headers = header?.components(separatedBy: ",")
+            var dictionary: [String: String] = [:]
+            headers!.forEach({
+                let components = $0.components(separatedBy:"; ")
+                let cleanPath = components[0].trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
+                dictionary[components[1]] = cleanPath
+            })
+            print(dictionary)
+            print("Next page path: \(dictionary["rel=\"next\""])")
+                    guard let data = response.value else { print("Error") ; return }
+                    print(data.totalCount)
+                    self.repositories = data
+                    self.tableView.reloadData()
         }
     }
 
+    func getRepos(with keyword: String?)  {
+        guard let keyword = keyword else { return }
+        let params: Parameters = ["q" : keyword]
+        let headers: HTTPHeaders = ["accept" : "application/vnd.github.mercy-preview+json"]
+        AF.request("https://api.github.com/search/repositories", parameters: params, headers: headers)
+          .validate()
+          .responseDecodable(of: Repositories.self) { (response) in
+            guard let repos = response.value else { return }
+                self.repositories = repos
+                print(repos.totalCount)
+                self.tableView.reloadData()
+                self.numOfResults = repos.totalCount
+        }
+    }
 }
 // MARK: - Search bar delegate methods
 extension SearchReposTableViewController {
-      func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-          print("Start search!")
-      }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dumbSearch(with: searchBar.text)
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        //getRepos(with: searchBar.text)
+    }
 
-      func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-          searchBar.showsCancelButton = true
-      }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
 
-      func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-          resignFirstResponder()
-          searchBar.endEditing(true)
-          searchBar.showsCancelButton = false
-          print("cancel searching")
-      }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resignFirstResponder()
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+    }
 
-      func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-          print(searchText)
-      }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //getRepos(with: searchText)
+        dumbSearch(with: searchText)
+        print(searchText)
+    }
 }
 
 // MARK: - Table view data source
@@ -74,12 +99,16 @@ extension SearchReposTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return numOfResults
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         if repositories.repos.count != 0 {
+            print(indexPath.row)
+            if indexPath.row > repositories.repos.count {
+
+            }
             cell.textLabel?.text = repositories.repos[indexPath.row].name
             cell.detailTextLabel?.text = repositories.repos[indexPath.row].description
         } else {
